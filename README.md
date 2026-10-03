@@ -72,3 +72,10 @@ this is the wrong library and you should bundle `tzdata` directly.
 - `all_time_zones()` — module-level list, sorted by identifier.
 - `search_time_zones(country_code=None, label_contains=None)` — module-level
   search.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
